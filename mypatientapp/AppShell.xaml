@@ -6,10 +6,19 @@
     xmlns:local="clr-namespace:mypatientapp"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Home"
+    <TabBar>
+
+        <ShellContent
+        Title="Dashboard"
         ContentTemplate="{DataTemplate local:Dashboard}"
-        Route="MainPage" />
+        Route="Dashboard" />
+
+        <ShellContent
+        Title="Patients"
+        ContentTemplate="{DataTemplate local:Patients}"
+        Route="Patients" />
+
+    </TabBar>
 
 </Shell>
 
