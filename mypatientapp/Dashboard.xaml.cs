@@ -1,10 +1,10 @@
 ﻿namespace mypatientapp;
 
-public partial class MainPage : ContentPage
+public partial class Dashboard : ContentPage
 {
 	int count = 0;
 
-	public MainPage()
+	public Dashboard()
 	{
 		InitializeComponent();
 	}
