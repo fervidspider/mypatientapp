@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:mypatientapp.ViewModel"
+             xmlns:model="clr-namespace:mypatientapp.Model"
+             x:Class="mypatientapp.View.Patients"
+             x:DataType="viewmodel:PatientViewModel"
+             Title="Patients">
+
+<Grid Margin="20" ColumnDefinitions="*,75,75" RowDefinitions="50,*" RowSpacing="15" ColumnSpacing="15">
+
+    <Frame Grid.Column="0"
+           BackgroundColor="#28292E"
+           BorderColor="Transparent"
+           CornerRadius="20"
+           WidthRequest="300"
+           HorizontalOptions="Start">
+
+        <Entry Placeholder="Search..." HeightRequest="25" WidthRequest="275" BackgroundColor="#28292E"/>
+
+    </Frame>
+
+    <Frame Grid.Column="1"
+           BackgroundColor="#28292E"
+           BorderColor="Transparent"
+           CornerRadius="20"
+           >
+
+        <ImageButton 
+            Source="person_add.png"
+            Scale="2.5"/>
+
+    </Frame>
+
+    <Frame Grid.Column="2"
+           BackgroundColor="#28292E"
+           BorderColor="Transparent"
+           CornerRadius="20"
+           >
+
+        <ImageButton 
+            Command="{Binding GetPatientsCommand}"
+            IsEnabled="{Binding IsNotBusy}"
+            Source="arrow_clockwise.png"
+            Scale="2.5"/>
+
+    </Frame>
+
+    <Frame Grid.Row="1" Grid.ColumnSpan="3" BackgroundColor="#28292E" BorderColor="Transparent" CornerRadius="25">
+
+
+        <CollectionView ItemsSource="{Binding Patients}" >
+
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="15" HorizontalItemSpacing="15" Span="2"    />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate x:DataType="model:Patient">
+
+                    <Frame BackgroundColor="#222327" BorderColor="Transparent" CornerRadius="15">
+                        <Grid RowDefinitions="*" ColumnDefinitions="auto,auto,auto,auto" ColumnSpacing="5">
+                            <Label Grid.Column="1" Text="{Binding firstname}"
+                                   FontSize="Medium"/>
+                            <Label Grid.Column="3" Text="{Binding lastname}"
+                                   FontSize="Medium" Opacity="0.75"/>
+                        </Grid>
+                    </Frame>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </Frame>
+
+    <Frame
+        HeightRequest="60" WidthRequest="60" Margin="20" Grid.RowSpan="2" Grid.ColumnSpan="3"
+        BackgroundColor="{StaticResource Gray950}" IsVisible="{Binding IsBusy}" CornerRadius="15"
+        HorizontalOptions="Center" VerticalOptions="Center" BorderColor="Transparent">
+
+        <ActivityIndicator
+            IsVisible="{Binding IsBusy}"
+            IsRunning="{Binding IsBusy}"
+            />
+
+    </Frame>
+
+</Grid>
+
+
+
+</ContentPage>

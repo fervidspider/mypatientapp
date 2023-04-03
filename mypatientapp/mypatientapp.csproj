@@ -15,7 +15,7 @@
 		<ApplicationTitle>mypatientapp</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.mypatientapp</ApplicationId>
+		<ApplicationId>com.callumjames.mypatientapp</ApplicationId>
 		<ApplicationIdGuid>c3b5a0df-85ac-4047-a402-3e6035ee9458</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -32,7 +32,15 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>
+	  <CodesignProvision>iOS Team Provisioning Profile: com.callumjames.mypatientapp</CodesignProvision>
+	  <CodesignKey>iPhone Developer</CodesignKey>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
+	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\person_add.svg" />
+	</ItemGroup>
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -53,6 +61,27 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+		<PackageReference Include="MongoDB.Driver" Version="2.19.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Remove="View\" />
+	  <None Remove="Model\" />
+	  <None Remove="ViewModel\" />
+	  <None Remove="Services\" />
+	  <None Remove="Resources\Images\person_add.svg" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="View\" />
+	  <Folder Include="Model\" />
+	  <Folder Include="ViewModel\" />
+	  <Folder Include="Services\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="Resources\Images\person_add.svg" />
+	  <BundleResource Include="Resources\Images\person_add.svg" />
+	  <BundleResource Include="Resources\Images\person_add.svg" />
+	</ItemGroup>
 </Project>

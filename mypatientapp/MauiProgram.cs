@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using mypatientapp.View;
+using mypatientapp.ViewModel;
+using mypatientapp.Services;
 
 namespace mypatientapp;
 
@@ -19,7 +22,13 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
-		return builder.Build();
+		builder.Services.AddTransient<Dashboard>();
+
+        builder.Services.AddTransient<Patients>();
+        builder.Services.AddTransient<PatientViewModel>();
+        builder.Services.AddSingleton<PatientService>();
+
+        return builder.Build();
 	}
 }
 
