@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:mypatientapp.ViewModel"
+             xmlns:model="clr-namespace:mypatientapp.Model"
+             x:Class="mypatientapp.View.PatientDetails"
+             x:DataType="viewmodel:PatientDetailsViewModel"
+             Title="{Binding Patient.firstname}">
+
+    <Shell.TitleView>
+        <StackLayout>
+            <Button Text="Edit" HeightRequest="50" TextColor="White" BackgroundColor="Transparent" WidthRequest="75" HorizontalOptions="End"></Button>
+        </StackLayout>
+    </Shell.TitleView>
+
+
+    <Grid Margin="20" ColumnDefinitions="*,*,*" ColumnSpacing="20">
+
+        <Grid RowDefinitions="auto,auto" RowSpacing="20">
+
+            <Frame
+                Padding="0"
+                BackgroundColor="#28292E"
+                BorderColor="Transparent"
+                CornerRadius="20">
+
+                <Grid RowDefinitions="40,40,40,40,40,40,40,40,40,20">
+
+                    <Border StrokeThickness="0"
+                            StrokeShape="RoundRectangle 20,20,0,0"
+                            Background="#005EB8"
+                            >
+                        
+                        <Label Text="Personal Details"
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               />
+                    </Border>
+
+                    <Label Grid.Row="1" Text="First Name"  Margin="25" VerticalOptions="Center"/>
+
+                    <Frame Grid.Row="2" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0" BorderColor="Transparent">
+
+                        <Label Text="{Binding Patient.firstname}" Margin="20,0,20,0" VerticalOptions="Center"/>
+
+                    </Frame>
+
+                    <Label Grid.Row="3" Text="Middle Name"  Margin="25" VerticalOptions="Center"/>
+
+                    <Frame Grid.Row="4" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0" BorderColor="Transparent">
+
+                        <Label Text="{Binding Patient.middlename}" Margin="20,0,20,0" VerticalOptions="Center"/>
+
+                    </Frame>
+
+                    <Label Grid.Row="5" Text="Last Name"  Margin="25" VerticalOptions="Center"/>
+
+                    <Frame Grid.Row="6" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0" BorderColor="Transparent">
+
+                        <Label Text="{Binding Patient.lastname}" Margin="20,0,20,0" VerticalOptions="Center"/>
+
+                    </Frame>
+
+                    <Label Grid.Row="7" Text="Date of Birth"  Margin="25" VerticalOptions="Center"/>
+
+                    <Frame Grid.Row="8" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0" BorderColor="Transparent">
+
+                        <Label Text="{Binding Patient.dateofbirth}" Margin="20,0,20,0" VerticalOptions="Center"/>
+
+                    </Frame>
+                    
+
+                </Grid>
+
+            </Frame>
+
+             <Frame
+                Grid.Row="1"
+                Padding="0"
+                BackgroundColor="#28292E"
+                BorderColor="Transparent"
+                CornerRadius="20">
+
+                <Grid RowDefinitions="40,20,auto,20">
+
+                        <Border StrokeThickness="0"
+                                StrokeShape="RoundRectangle 20,20,0,0"
+                                Background="#005EB8"
+                                >
+                        
+                            <Label Text="Notes"
+                                   TextColor="White"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   />
+                        </Border>
+
+                        <Frame Grid.Row="2" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0,10,0,10" BorderColor="Transparent">
+
+                            <Label Text="{Binding Patient.notes}" Margin="20,0,20,0" VerticalOptions="Center"/>
+
+                        </Frame>
+                    
+                 </Grid>
+
+                </Frame>
+
+        </Grid>
+
+        <Grid Grid.Column="1" RowDefinitions="auto,auto" RowSpacing="20">
+
+            <Frame
+                Padding="0"
+                BackgroundColor="#28292E"
+                BorderColor="Transparent"
+                CornerRadius="20">
+
+                <Grid RowDefinitions="40,40,40,40,40,40,40,40,40,40,40,20">
+
+                    <Border StrokeThickness="0"
+                            StrokeShape="RoundRectangle 20,20,0,0"
+                            Background="#005EB8"
+                            >
+                        
+                        <Label Text="Address"
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               />
+                    </Border>
+
+                    <Label Grid.Row="1" Text="Firstline"  Margin="25" VerticalOptions="Center"/>
+
+                    <Frame Grid.Row="2" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0" BorderColor="Transparent">
+
+                        <Label Text="{Binding Patient.address.firstline}" Margin="20,0,20,0" VerticalOptions="Center"/>
+
+                    </Frame>
+
+                    <Label Grid.Row="3" Text="Secondline"  Margin="25" VerticalOptions="Center"/>
+
+                    <Frame Grid.Row="4" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0" BorderColor="Transparent">
+
+                        <Label Text="{Binding Patient.address.secondline}" Margin="20,0,20,0" VerticalOptions="Center"/>
+
+                    </Frame>
+
+                    <Label Grid.Row="5" Text="City"  Margin="25" VerticalOptions="Center"/>
+
+                    <Frame Grid.Row="6" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0" BorderColor="Transparent">
+
+                        <Label Text="{Binding Patient.address.city}" Margin="20,0,20,0" VerticalOptions="Center"/>
+
+                    </Frame>
+
+                    <Label Grid.Row="7" Text="Postocde"  Margin="25" VerticalOptions="Center"/>
+
+                    <Frame Grid.Row="8" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0" BorderColor="Transparent">
+
+                        <Label Text="{Binding Patient.address.postcode}" Margin="20,0,20,0" VerticalOptions="Center"/>
+
+                    </Frame>
+
+                    <Label Grid.Row="9" Text="County"  Margin="25" VerticalOptions="Center"/>
+
+                    <Frame Grid.Row="10" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0" BorderColor="Transparent">
+
+                        <Label Text="{Binding Patient.address.county}" Margin="20,0,20,0" VerticalOptions="Center"/>
+
+                    </Frame>
+                    
+
+                </Grid>
+
+            </Frame>
+
+             <Frame
+                Grid.Row="1"
+                Padding="0"
+                BackgroundColor="#28292E"
+                BorderColor="Transparent"
+                CornerRadius="20">
+
+                <Grid RowDefinitions="40,20,40,20">
+
+                        <Border StrokeThickness="0"
+                                StrokeShape="RoundRectangle 20,20,0,0"
+                                Background="#005EB8"
+                                >
+                        
+                            <Label Text="Notes"
+                                   TextColor="White"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   />
+                        </Border>
+
+                        <Frame Grid.Row="2" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0" BorderColor="Transparent">
+
+                            <Label Text="{Binding Patient.firstname}" Margin="20,0,20,0" VerticalOptions="Center"/>
+
+                        </Frame>
+                    
+                 </Grid>
+
+                </Frame>
+
+        </Grid>
+
+        <Grid Grid.Column="2" RowDefinitions="auto" RowSpacing="20">
+
+            <Frame
+                Padding="0"
+                BackgroundColor="#28292E"
+                BorderColor="Transparent"
+                CornerRadius="20">
+
+                <Grid RowDefinitions="40,40,auto,40,auto,40,auto,20">
+
+                    <Border StrokeThickness="0"
+                            StrokeShape="RoundRectangle 20,20,0,0"
+                            Background="#005EB8"
+                            >
+                        
+                        <Label Text="Personal Details"
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               />
+                    </Border>
+
+                    <Label Grid.Row="1" Text="Disabilities (Mental)"  Margin="25" VerticalOptions="Center"/>
+
+                    <Frame Grid.Row="2" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="10,5,10,5" BorderColor="Transparent">
+
+                        <StackLayout BindableLayout.ItemsSource="{Binding Patient.mental}"
+                             Orientation="Vertical">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Text="{Binding}" />
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+
+                    </Frame>
+
+                    <Label Grid.Row="3" Text="Disabilities (Physical)"  Margin="25" VerticalOptions="Center"/>
+
+                    <Frame Grid.Row="4" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0" BorderColor="Transparent">
+
+                        <StackLayout BindableLayout.ItemsSource="{Binding Patient.physical}"
+                             Orientation="Vertical">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Text="{Binding}" />
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+
+                    </Frame>
+
+                    <Label Grid.Row="5" Text="Medication / Treatments"  Margin="25" VerticalOptions="Center"/>
+
+                    <Frame Grid.Row="6" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0" BorderColor="Transparent">
+
+                    <StackLayout BindableLayout.ItemsSource="{Binding Patient.medication}"
+                             Orientation="Vertical">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Text="{Binding}" />
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+
+                    </Frame>
+
+                    
+                    
+
+                </Grid>
+
+            </Frame>
+
+
+
+        </Grid>
+
+    </Grid>
+
+
+</ContentPage>

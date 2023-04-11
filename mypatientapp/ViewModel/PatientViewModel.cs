@@ -19,13 +19,16 @@ namespace mypatientapp.ViewModel
 
         public PatientViewModel(PatientService patientService)
         {
-
             this.patientService = patientService;
             GetPatientsCommand = new Command(async () => await GetPatientsAsync());
+
+            Title = "Patients"; 
 
             GetPatientsAsync();
 
         }
+
+        
 
         async Task GetPatientsAsync()
         {

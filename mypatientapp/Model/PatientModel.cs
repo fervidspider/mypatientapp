@@ -1,4 +1,5 @@
 ﻿using System;
+using CommunityToolkit.Mvvm.ComponentModel;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
@@ -7,7 +8,7 @@ using Newtonsoft.Json;
 namespace mypatientapp.Model
 
 {
-    public class Patient
+    public class Patient : ObservableObject
     {
 
         public string Id { get; set; }

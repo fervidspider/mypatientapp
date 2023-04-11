@@ -33,7 +33,7 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>
 	  <CodesignProvision>iOS Team Provisioning Profile: com.callumjames.mypatientapp</CodesignProvision>
-	  <CodesignKey>iPhone Developer</CodesignKey>
+	  <CodesignKey>Apple Development: callumjessejames@gmail.com (9QX47BRU34)</CodesignKey>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>

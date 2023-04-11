@@ -7,6 +7,8 @@
              x:DataType="viewmodel:PatientViewModel"
              Title="Patients">
 
+
+
 <Grid Margin="20" ColumnDefinitions="*,75,75" RowDefinitions="50,*" RowSpacing="15" ColumnSpacing="15">
 
     <Frame Grid.Column="0"
@@ -60,6 +62,9 @@
                 <DataTemplate x:DataType="model:Patient">
 
                     <Frame BackgroundColor="#222327" BorderColor="Transparent" CornerRadius="15">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </Frame.GestureRecognizers>
                         <Grid RowDefinitions="*" ColumnDefinitions="auto,auto,auto,auto" ColumnSpacing="5">
                             <Label Grid.Column="1" Text="{Binding firstname}"
                                    FontSize="Medium"/>
@@ -83,8 +88,7 @@
 
         <ActivityIndicator
             IsVisible="{Binding IsBusy}"
-            IsRunning="{Binding IsBusy}"
-            />
+            IsRunning="{Binding IsBusy}" />
 
     </Frame>
 
