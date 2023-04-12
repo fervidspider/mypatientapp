@@ -15,12 +15,14 @@ namespace mypatientapp.ViewModel
 
         public ObservableCollection<Patient> Patients { get; } = new();
         public Command GetPatientsCommand { get; }
+        public Command NavigateTo { get; }
         PatientService patientService;
 
         public PatientViewModel(PatientService patientService)
         {
             this.patientService = patientService;
             GetPatientsCommand = new Command(async () => await GetPatientsAsync());
+            NavigateTo = new Command(async () => await GetPatientsAsync());
 
             Title = "Patients"; 
 
@@ -28,9 +30,7 @@ namespace mypatientapp.ViewModel
 
         }
 
-        
-
-        async Task GetPatientsAsync()
+        public async Task GetPatientsAsync()
         {
 
             if (IsBusy)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net.Http.Json;
 using System.Text.Json;
 using mypatientapp.Model;
@@ -50,7 +51,7 @@ namespace mypatientapp.Services
         {
 
             var response = await httpClient.GetAsync($"{baseURL}/api/Patient/{id}");
-            Console.WriteLine($"{baseURL}/api/Patient/{id}");
+            
 
             if (response.IsSuccessStatusCode)
             {
@@ -61,6 +62,26 @@ namespace mypatientapp.Services
 
             return patient;
 
+        }
+
+        public async Task DeletePatientById(string id)
+        {
+
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"{baseURL}/api/Patient/{id}");
+            var response = await httpClient.SendAsync(request);
+
+            Console.WriteLine($"SERVICE: {baseURL}/api/Patient/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                Debug.WriteLine($"{id} Successfully Deleted");
+                Console.WriteLine("Success");
+            }
+            else
+            {
+                Debug.WriteLine($"Error Deleting {id}");
+                Console.WriteLine("Error");
+            }
         }
 
 

@@ -19,11 +19,16 @@ namespace mypatientapp.ViewModel
 
         PatientService patientService;
 
+        public Command DeletePatientCommand { get; }
+
         public PatientDetailsViewModel(PatientService patientService)
 		{
             this.patientService = patientService;
 
+            DeletePatientCommand = new Command(async () => await DeletePatientAsync(Patient.Id));
+
         }
+
 
         partial void OnPassedpatientChanged(Patient value)
         {
@@ -58,6 +63,55 @@ namespace mypatientapp.ViewModel
             {
                 IsBusy = false;
             }
+
+
+        }
+
+        async Task DeletePatientAsync(string id)
+        {
+
+            var answer = await Application.Current.MainPage.DisplayAlert(
+                "Confirm Deletion!",
+                $"{Patient.Id}\n{Patient.firstname} {Patient.lastname}\n",
+                "Delete", "Cancel");
+
+            if (answer == false)
+                return;
+
+            else
+            {
+
+                if (IsBusy)
+                    return;
+
+                try
+                {
+                    IsBusy = true;
+
+                    await patientService.DeletePatientById(id);
+
+                    await Application.Current.MainPage.DisplayAlert("Success!", $"Patient \"{id}\" Succesfully Deleted", "OK");
+
+                    await Shell.Current.GoToAsync("..");
+
+                }
+                catch (Exception ex)
+                {
+
+                    Debug.WriteLine($"Unable to retrieve patients {ex.Message}");
+                    await Application.Current.MainPage.DisplayAlert("Error!", ex.Message, "OK");
+
+                }
+                finally
+                {
+                    IsBusy = false;
+                    Console.WriteLine("@DeletePatientAsync - Finally");
+                }
+
+            }
+            
+
+            
 
 
         }

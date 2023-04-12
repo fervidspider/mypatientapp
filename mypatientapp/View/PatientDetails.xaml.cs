@@ -13,4 +13,7 @@ public partial class PatientDetails : ContentPage
 		InitializeComponent();
 		BindingContext = patientDetailsViewModel;
 	}
+
+
+
 }

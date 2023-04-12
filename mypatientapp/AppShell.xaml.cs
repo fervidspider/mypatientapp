@@ -9,6 +9,8 @@ public partial class AppShell : Shell
 		InitializeComponent();
 
 		Routing.RegisterRoute(nameof(PatientDetails), typeof(PatientDetails));
-	}
+        Routing.RegisterRoute(nameof(PatientCreate), typeof(PatientCreate));
+
+    }
 }
 

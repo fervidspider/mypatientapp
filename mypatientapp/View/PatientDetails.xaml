@@ -7,22 +7,31 @@
              x:DataType="viewmodel:PatientDetailsViewModel"
              Title="{Binding Patient.firstname}">
 
-    <Shell.TitleView>
-        <StackLayout>
-            <Button Text="Edit" HeightRequest="50" TextColor="White" BackgroundColor="Transparent" WidthRequest="75" HorizontalOptions="End"></Button>
-        </StackLayout>
-    </Shell.TitleView>
-
 
     <Grid Margin="20" ColumnDefinitions="*,*,*" ColumnSpacing="20">
 
-        <Grid RowDefinitions="auto,auto" RowSpacing="20">
+        <Frame
+            HeightRequest="60" WidthRequest="60" Margin="20" Grid.ColumnSpan="3"
+            BackgroundColor="{StaticResource Gray950}" IsVisible="{Binding IsBusy}" CornerRadius="15"
+            HorizontalOptions="Center" VerticalOptions="Center" BorderColor="Transparent">
+
+            <ActivityIndicator
+                IsVisible="{Binding IsBusy}"
+                IsRunning="{Binding IsBusy}" />
+
+        </Frame>
+
+        <Grid RowDefinitions="auto,*" RowSpacing="20">
 
             <Frame
                 Padding="0"
                 BackgroundColor="#28292E"
                 BorderColor="Transparent"
                 CornerRadius="20">
+
+         
+               
+
 
                 <Grid RowDefinitions="40,40,40,40,40,40,40,40,40,20">
 
@@ -31,7 +40,7 @@
                             Background="#005EB8"
                             >
                         
-                        <Label Text="Personal Details"
+                        <Label Text="  Personal Details  "
                                TextColor="White"
                                FontSize="16"
                                FontAttributes="Bold"
@@ -84,14 +93,14 @@
                 BorderColor="Transparent"
                 CornerRadius="20">
 
-                <Grid RowDefinitions="40,20,auto,20">
+                <Grid RowDefinitions="40,20,*,20">
 
                         <Border StrokeThickness="0"
                                 StrokeShape="RoundRectangle 20,20,0,0"
                                 Background="#005EB8"
                                 >
                         
-                            <Label Text="Notes"
+                            <Label Text="  Notes  "
                                    TextColor="White"
                                    FontSize="16"
                                    FontAttributes="Bold"
@@ -102,7 +111,7 @@
 
                         <Frame Grid.Row="2" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0,10,0,10" BorderColor="Transparent">
 
-                            <Label Text="{Binding Patient.notes}" Margin="20,0,20,0" VerticalOptions="Center"/>
+                            <Label Text="{Binding Patient.notes}" Margin="20,0,20,0"/>
 
                         </Frame>
                     
@@ -127,7 +136,7 @@
                             Background="#005EB8"
                             >
                         
-                        <Label Text="Address"
+                        <Label Text="  Address  "
                                TextColor="White"
                                FontSize="16"
                                FontAttributes="Bold"
@@ -188,14 +197,14 @@
                 BorderColor="Transparent"
                 CornerRadius="20">
 
-                <Grid RowDefinitions="40,20,40,20">
+                <Grid RowDefinitions="40,40,40,40,40,20">
 
                         <Border StrokeThickness="0"
                                 StrokeShape="RoundRectangle 20,20,0,0"
                                 Background="#005EB8"
                                 >
                         
-                            <Label Text="Notes"
+                            <Label Text="  Other Information  "
                                    TextColor="White"
                                    FontSize="16"
                                    FontAttributes="Bold"
@@ -204,11 +213,23 @@
                                    />
                         </Border>
 
+                        <Label Grid.Row="1" Text="Height (cm)"  Margin="25" VerticalOptions="Center"/>
+
                         <Frame Grid.Row="2" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0" BorderColor="Transparent">
 
-                            <Label Text="{Binding Patient.firstname}" Margin="20,0,20,0" VerticalOptions="Center"/>
+                            <Label Text="{Binding Patient.height}" Margin="20,0,20,0" VerticalOptions="Center"/>
 
                         </Frame>
+
+                        <Label Grid.Row="3" Text="Weight (kg)"  Margin="25" VerticalOptions="Center"/>
+
+                        <Frame Grid.Row="4" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0" BorderColor="Transparent">
+
+                            <Label Text="{Binding Patient.weight}" Margin="20,0,20,0" VerticalOptions="Center"/>
+
+                        </Frame>
+
+                        
                     
                  </Grid>
 
@@ -216,22 +237,45 @@
 
         </Grid>
 
-        <Grid Grid.Column="2" RowDefinitions="auto" RowSpacing="20">
+        <Grid Grid.Column="2" RowDefinitions="50,*" RowSpacing="20">
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
+
+                <Button Background="#28292E" Text="Edit Patient" TextColor="White" CornerRadius="15">
+                    <Button.Shadow>
+                        <Shadow Brush="Black"
+                                Offset="0,0"
+                                Radius="15"
+                                Opacity="0.4" />
+                    </Button.Shadow>
+                </Button>
+                <Button Grid.Column="1" Background="#B44040" Text="Delete Patient" TextColor="White" CornerRadius="15"
+                        Command="{Binding DeletePatientCommand}">
+                    <Button.Shadow>
+                        <Shadow Brush="Black"
+                                Offset="0,0"
+                                Radius="15"
+                                Opacity="0.35" />
+                    </Button.Shadow>
+                </Button>
+
+            </Grid>
 
             <Frame
+                Grid.Row="1"
                 Padding="0"
                 BackgroundColor="#28292E"
                 BorderColor="Transparent"
                 CornerRadius="20">
 
-                <Grid RowDefinitions="40,40,auto,40,auto,40,auto,20">
+                <Grid RowDefinitions="40,40,*,40,*,40,*,20">
 
                     <Border StrokeThickness="0"
                             StrokeShape="RoundRectangle 20,20,0,0"
                             Background="#005EB8"
                             >
                         
-                        <Label Text="Personal Details"
+                        <Label Text="  Clinical Information  "
                                TextColor="White"
                                FontSize="16"
                                FontAttributes="Bold"
@@ -242,7 +286,7 @@
 
                     <Label Grid.Row="1" Text="Disabilities (Mental)"  Margin="25" VerticalOptions="Center"/>
 
-                    <Frame Grid.Row="2" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="10,5,10,5" BorderColor="Transparent">
+                    <Frame Grid.Row="2" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="10" BorderColor="Transparent">
 
                         <StackLayout BindableLayout.ItemsSource="{Binding Patient.mental}"
                              Orientation="Vertical">
@@ -257,7 +301,7 @@
 
                     <Label Grid.Row="3" Text="Disabilities (Physical)"  Margin="25" VerticalOptions="Center"/>
 
-                    <Frame Grid.Row="4" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0" BorderColor="Transparent">
+                    <Frame Grid.Row="4" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="10" BorderColor="Transparent">
 
                         <StackLayout BindableLayout.ItemsSource="{Binding Patient.physical}"
                              Orientation="Vertical">
@@ -272,7 +316,7 @@
 
                     <Label Grid.Row="5" Text="Medication / Treatments"  Margin="25" VerticalOptions="Center"/>
 
-                    <Frame Grid.Row="6" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="0" BorderColor="Transparent">
+                    <Frame Grid.Row="6" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="10" BorderColor="Transparent">
 
                     <StackLayout BindableLayout.ItemsSource="{Binding Patient.medication}"
                              Orientation="Vertical">
