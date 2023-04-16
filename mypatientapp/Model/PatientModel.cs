@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 
 namespace mypatientapp.Model
@@ -20,11 +21,11 @@ namespace mypatientapp.Model
         public int height { get; set; }
         public int weight { get; set; }
         public string notes { get; set; } = null!;
-        public List<String> mental { get; set; } = null!;
-        public List<String> physical { get; set; } = null!;
-        public List<String> medication { get; set; } = null!;
-        public DateTime? _createdOn { get; set; }
-        public DateTime? _lastEdited { get; set; }
+        public ObservableCollection<String> mental { get; set; } = null!;
+        public ObservableCollection<String> physical { get; set; } = null!;
+        public ObservableCollection<String> medication { get; set; } = null!;
+        public DateTime _createdOn { get; set; }
+        public DateTime _lastEdited { get; set; }
 
     }
 }

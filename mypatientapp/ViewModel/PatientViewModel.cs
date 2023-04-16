@@ -15,18 +15,25 @@ namespace mypatientapp.ViewModel
 
         public ObservableCollection<Patient> Patients { get; } = new();
         public Command GetPatientsCommand { get; }
-        public Command NavigateTo { get; }
+        public Command NavigateToCommand { get; }
         PatientService patientService;
 
         public PatientViewModel(PatientService patientService)
         {
             this.patientService = patientService;
             GetPatientsCommand = new Command(async () => await GetPatientsAsync());
-            NavigateTo = new Command(async () => await GetPatientsAsync());
+            NavigateToCommand = new Command(() => NavigateToCreate());
 
             Title = "Patients"; 
 
             GetPatientsAsync();
+
+        }
+
+        private async void NavigateToCreate()
+        {
+
+            await Shell.Current.GoToAsync(nameof(PatientCreate), true);
 
         }
 

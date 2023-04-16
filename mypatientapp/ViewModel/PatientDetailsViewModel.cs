@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using mypatientapp.Model;
@@ -11,11 +12,50 @@ namespace mypatientapp.ViewModel
     public partial class PatientDetailsViewModel : BaseViewModel
 	{
 
-        [ObservableProperty]
-        public Patient passedpatient;
+        // Patient
 
         [ObservableProperty]
-        public Patient patient = new();
+        public string id;
+        [ObservableProperty]
+        public string firstname;
+        [ObservableProperty]
+        public string middlename;
+        [ObservableProperty]
+        public string lastname;
+        [ObservableProperty]
+        public DateTime dateofbirth;
+        [ObservableProperty]
+        public int height;
+        [ObservableProperty]
+        public int weight;
+        [ObservableProperty]
+        public string notes;
+        [ObservableProperty]
+        public DateTime createdOn;
+        [ObservableProperty]
+        public DateTime lastEdited;
+
+        // Collections / Lists
+
+        public ObservableCollection<String> _mental { get; set; } = new();
+        public ObservableCollection<String> _physical { get; set; } = new();
+        public ObservableCollection<String> _medication { get; set; } = new();
+
+        // Address
+
+        [ObservableProperty]
+        public string firstline;
+        [ObservableProperty]
+        public string secondline;
+        [ObservableProperty]
+        public string postcode;
+        [ObservableProperty]
+        public string city;
+        [ObservableProperty]
+        public string county;
+
+        [ObservableProperty]
+        public Patient passedpatient;
 
         PatientService patientService;
 
@@ -25,7 +65,7 @@ namespace mypatientapp.ViewModel
 		{
             this.patientService = patientService;
 
-            DeletePatientCommand = new Command(async () => await DeletePatientAsync(Patient.Id));
+            DeletePatientCommand = new Command(async () => await DeletePatientAsync(Id));
 
         }
 
@@ -47,9 +87,26 @@ namespace mypatientapp.ViewModel
             {
                 IsBusy = true;
 
-                var pulledpatient = await patientService.GetPatientById(id);
+                var data = await patientService.GetPatientById(id);
 
-                Patient = pulledpatient;                
+                Id = data.Id;
+                Firstname = data.firstname;
+                Middlename = data.middlename;
+                Lastname = data.lastname;
+                Dateofbirth = data.dateofbirth;
+                Firstline = data.address.firstline;
+                Secondline = data.address.secondline;
+                Postcode = data.address.postcode;
+                City = data.address.city;
+                County = data.address.county;
+                Height = data.height;
+                Weight = data.weight;
+                Notes = data.notes;
+                _mental = data.mental;
+                _physical = data.physical;
+                _medication = data.medication;
+                CreatedOn = data._createdOn;
+                LastEdited = data._lastEdited;
 
             }
             catch (Exception ex)

@@ -1,14 +1,330 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:mypatientapp.Model"
+             xmlns:viewmodel="clr-namespace:mypatientapp.ViewModel"
+             x:DataType="viewmodel:PatientCreateViewModel"
              x:Class="mypatientapp.View.PatientCreate"
              Title="PatientCreate">
 
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+ <Grid Margin="20" ColumnDefinitions="*,*,*" ColumnSpacing="20">
+
+        <Frame
+            HeightRequest="60" WidthRequest="60" Margin="20" Grid.ColumnSpan="3"
+            BackgroundColor="{StaticResource Gray950}" IsVisible="{Binding IsBusy}" CornerRadius="15"
+            HorizontalOptions="Center" VerticalOptions="Center" BorderColor="Transparent">
+
+            <ActivityIndicator
+                IsVisible="{Binding IsBusy}"
+                IsRunning="{Binding IsBusy}" />
+
+        </Frame>
+
+        <Grid RowDefinitions="auto,auto" RowSpacing="20">
+
+            <Frame
+                Padding="0"
+                BackgroundColor="#28292E"
+                BorderColor="Transparent"
+                CornerRadius="20">
+
+         
+               
+
+
+                <Grid RowDefinitions="40,40,40,40,40,40,40,40,40,20">
+
+                    <Border StrokeThickness="0"
+                            StrokeShape="RoundRectangle 20,20,0,0"
+                            Background="#005EB8"
+                            >
+                        
+                        <Label Text="  Personal Details  "
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               />
+                    </Border>
+
+                    <Label Grid.Row="1" Text="First Name"  Margin="25" VerticalOptions="Center"/>
+
+                    <Entry Grid.Row="2" Text="{Binding Firstname}" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327" />
+
+
+                    <Label Grid.Row="3" Text="Middle Name"  Margin="25" VerticalOptions="Center"/>
+
+                    <Entry Grid.Row="4" Text="{Binding Middlename}" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327" />
+
+
+                    <Label Grid.Row="5" Text="Last Name"  Margin="25" VerticalOptions="Center"/>
+
+                    <Entry Grid.Row="6" Text="{Binding Lastname}" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327"/>
+
+
+                    <Label Grid.Row="7" Text="Date of Birth"  Margin="25" VerticalOptions="Center"/>
+
+                    <DatePicker Grid.Row="8" Date="{Binding Dateofbirth}" Format="dd/MM/yyyy" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327"/>
+                    
+
+                </Grid>
+
+            </Frame>
+
+             <Frame
+                Grid.Row="1"
+                Padding="0"
+                BackgroundColor="#28292E"
+                BorderColor="Transparent"
+                CornerRadius="20">
+
+                <Grid RowDefinitions="40,20,*,20">
+
+                        <Border StrokeThickness="0"
+                                StrokeShape="RoundRectangle 20,20,0,0"
+                                Background="#005EB8"
+                                >
+                        
+                            <Label Text="  Notes  "
+                                   TextColor="White"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   />
+                        </Border>
+
+                        
+
+                        <Editor Grid.Row="2"
+                                Text="{Binding Notes}"
+                                Margin="15,0,15,0"
+                                VerticalOptions="Start"
+                                BackgroundColor="#222327" AutoSize="TextChanges"/>
+
+
+                    
+                 </Grid>
+
+                </Frame>
+
+        </Grid>
+
+        <Grid Grid.Column="1" RowDefinitions="auto,auto" RowSpacing="20">
+
+            <Frame
+                Padding="0"
+                BackgroundColor="#28292E"
+                BorderColor="Transparent"
+                CornerRadius="20">
+
+                <Grid RowDefinitions="40,40,40,40,40,40,40,40,40,40,40,20">
+
+                    <Border StrokeThickness="0"
+                            StrokeShape="RoundRectangle 20,20,0,0"
+                            Background="#005EB8"
+                            >
+                        
+                        <Label Text="  Address  "
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               />
+                    </Border>
+
+                    <Label Grid.Row="1" Text="Firstline"  Margin="25" VerticalOptions="Center"/>
+
+                    <Entry Grid.Row="2" Text="{Binding Firstline}" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327" />
+
+
+                    <Label Grid.Row="3" Text="Secondline"  Margin="25" VerticalOptions="Center"/>
+
+                    <Entry Grid.Row="4" Text="{Binding Secondline}" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327" />
+
+
+                    <Label Grid.Row="5" Text="City"  Margin="25" VerticalOptions="Center"/>
+
+                    <Entry Grid.Row="6" Text="{Binding City}" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327" />
+
+
+                    <Label Grid.Row="7" Text="Postocde"  Margin="25" VerticalOptions="Center"/>
+
+                    <Entry Grid.Row="8" Text="{Binding Postcode}" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327"/>
+
+
+                    <Label Grid.Row="9" Text="County"  Margin="25" VerticalOptions="Center"/>
+
+                    <Entry Grid.Row="10" Text="{Binding County}" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327"/>
+
+                    
+
+                </Grid>
+
+            </Frame>
+
+             <Frame
+                Grid.Row="1"
+                Padding="0"
+                BackgroundColor="#28292E"
+                BorderColor="Transparent"
+                CornerRadius="20">
+
+                <Grid RowDefinitions="40,40,40,40,40,20">
+
+                        <Border StrokeThickness="0"
+                                StrokeShape="RoundRectangle 20,20,0,0"
+                                Background="#005EB8"
+                                >
+                        
+                            <Label Text="  Other Information  "
+                                   TextColor="White"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   />
+                        </Border>
+
+                        <Label Grid.Row="1" Text="Height (cm)"  Margin="25" VerticalOptions="Center"/>
+
+                        <Entry Grid.Row="2" Text="{Binding Height}" Keyboard="Numeric" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327" />
+
+
+                        <Label Grid.Row="3" Text="Weight (kg)"  Margin="25" VerticalOptions="Center"/>
+
+                        <Entry Grid.Row="4" Text="{Binding Weight}" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327" />
+                 
+                    
+                 </Grid>
+
+                </Frame>
+
+        </Grid>
+
+        <Grid Grid.Column="2" RowDefinitions="50,*" RowSpacing="20">
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
+
+                <Button Background="#B44040" Text="Cancel" TextColor="White" CornerRadius="15">
+                    <Button.Shadow>
+                        <Shadow Brush="Black"
+                                Offset="0,0"
+                                Radius="15"
+                                Opacity="0.4" />
+                    </Button.Shadow>
+                </Button>
+                <Button Grid.Column="1" Background="#77AB58" Text="Create Patient" TextColor="White" CornerRadius="15"
+                        Command="{Binding CreatePatientCommand}">
+                    <Button.Shadow>
+                        <Shadow Brush="Black"
+                                Offset="0,0"
+                                Radius="15"
+                                Opacity="0.35" />
+                    </Button.Shadow>
+                </Button>
+
+            </Grid>
+
+            <Frame
+                Grid.Row="1"
+                Padding="0"
+                BackgroundColor="#28292E"
+                BorderColor="Transparent"
+                CornerRadius="20">
+
+                <Grid RowDefinitions="40,50,*,50,*,50,*,20">
+
+                    <Border StrokeThickness="0"
+                            StrokeShape="RoundRectangle 20,20,0,0"
+                            Background="#005EB8"
+                            >
+                        
+                        <Label Text="  Clinical Information  "
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               />
+                    </Border>
+
+                    <Grid Grid.Row="1" ColumnDefinitions="*,*">
+
+                        <Label Grid.Column="0" Text="Disabilities (Mental)"  Margin="25" VerticalOptions="Center"/>
+
+                        <Button Grid.Column="1" Command="{Binding AddMentalDisabilityCommand}" HorizontalOptions="End" Text="Add" Margin="10,10,15,10" WidthRequest="75"/>
+
+                    </Grid>
+
+                    <Frame Grid.Row="2" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="10" BorderColor="Transparent">
+
+                        <StackLayout BindableLayout.ItemsSource="{Binding _mental}"
+                             Orientation="Vertical">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Text="{Binding}" />
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+
+                    </Frame>
+
+                    <Grid Grid.Row="3" ColumnDefinitions="*,*">
+
+                        <Label Grid.Column="0" Text="Disabilities (Physical)"  Margin="25" VerticalOptions="Center"/>
+
+                        <Button Grid.Column="1" Command="{Binding AddPhysicalDisabilityCommand}" HorizontalOptions="End" Text="Add" Margin="10,10,15,10" WidthRequest="75"/>
+
+                    </Grid>
+
+                    <Frame Grid.Row="4" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="10" BorderColor="Transparent">
+
+                        <StackLayout BindableLayout.ItemsSource="{Binding _physical}"
+                             Orientation="Vertical">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Text="{Binding}" />
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+
+                    </Frame>
+
+                    <Grid Grid.Row="5" ColumnDefinitions="*,*">
+
+                        <Label Grid.Column="0" Text="Medication / Treatments"  Margin="25" VerticalOptions="Center"/>
+
+                        <Button Grid.Column="1" Command="{Binding AddMedicationCommand}" HorizontalOptions="End" Text="Add" Margin="10,10,15,10" WidthRequest="75"/>
+
+                    </Grid>
+
+                    <Frame Grid.Row="6" BackgroundColor="#222327" Margin="15,0,15,0" CornerRadius="15" Padding="10" BorderColor="Transparent">
+
+                    <StackLayout BindableLayout.ItemsSource="{Binding _medication}"
+                             Orientation="Vertical">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Text="{Binding}" />
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+
+                    </Frame>
+
+                    
+                    
+
+                </Grid>
+
+            </Frame>
+
+
+
+        </Grid>
+
+    </Grid>
 
 </ContentPage>

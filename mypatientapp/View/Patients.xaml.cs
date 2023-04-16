@@ -1,6 +1,5 @@
 ﻿using mypatientapp.ViewModel;
 using mypatientapp.Model;
-using AndroidX.Lifecycle;
 
 namespace mypatientapp.View;
 

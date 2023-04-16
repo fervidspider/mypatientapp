@@ -30,7 +30,8 @@
 
         <ImageButton 
             Source="person_add.png"
-            Scale="2.5"/>
+            Scale="2.5"
+            Command="{Binding NavigateToCommand}"/>
 
     </Frame>
 
