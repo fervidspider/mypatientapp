@@ -1,16 +1,19 @@
-﻿using mypatientapp.Model;
-using mypatientapp.ViewModel;
+﻿using mypatientapp.ViewModel;
+using mypatientapp.Model;
 
 namespace mypatientapp.View;
 
-public partial class Dashboard : ContentPage
+public partial class Appointments : ContentPage
 {
 
-	public Dashboard(DashboardViewModel dashboardViewModel)
+    
+    public Appointments(AppointmentViewModel appointmentViewModel)
 	{
+
 		InitializeComponent();
-		BindingContext = dashboardViewModel;
-	}
+        BindingContext = appointmentViewModel;
+
+    }
 
     private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
     {
@@ -18,15 +21,13 @@ public partial class Dashboard : ContentPage
 
         if (appointment == null)
             return;
-
+        
 
         await Shell.Current.GoToAsync(nameof(AppointmentDetails), true, new Dictionary<string, object>
         {
             {"passedappointment", appointment }
         });
-
+        
     }
 
 }
-
-

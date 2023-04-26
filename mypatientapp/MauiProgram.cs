@@ -23,6 +23,9 @@ public static class MauiProgram
 #endif
 
 		builder.Services.AddTransient<Dashboard>();
+        builder.Services.AddTransient<DashboardViewModel>();
+
+        // Patient Pages
 
         builder.Services.AddTransient<Patients>();
         builder.Services.AddTransient<PatientViewModel>();
@@ -33,7 +36,18 @@ public static class MauiProgram
         builder.Services.AddTransient<PatientCreate>();
         builder.Services.AddTransient<PatientCreateViewModel>();
 
+        // Appointment Pages
+
+        builder.Services.AddTransient<Appointments>();
+        builder.Services.AddTransient<AppointmentViewModel>();
+
+        builder.Services.AddTransient<AppointmentDetails>();
+        builder.Services.AddTransient<AppointmentDetailsViewModel>();
+
+        // Services
+
         builder.Services.AddSingleton<PatientService>();
+        builder.Services.AddSingleton<AppointmentService>();
 
 
         return builder.Build();

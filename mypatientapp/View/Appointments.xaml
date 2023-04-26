@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:mypatientapp.ViewModel"
              xmlns:model="clr-namespace:mypatientapp.Model"
-             x:Class="mypatientapp.View.Patients"
-             x:DataType="viewmodel:PatientViewModel"
-             Title="Patients">
+             x:Class="mypatientapp.View.Appointments"
+             x:DataType="viewmodel:AppointmentViewModel"
+             Title="Appointments">
 
 
 
@@ -33,7 +33,7 @@
            >
 
         <ImageButton 
-            Command="{Binding GetPatientsCommand}"
+            Command="{Binding GetAppointmentsCommand}"
             IsEnabled="{Binding IsNotBusy}"
             Source="arrow_clockwise.png"
             Scale="2.5"/>
@@ -45,7 +45,7 @@
          <Grid ColumnDefinitions="*,100,*" RowDefinitions="*,30" RowSpacing="20" ColumnSpacing="50" >
 
 
-        <CollectionView Grid.ColumnSpan="3" ItemsSource="{Binding Patients}" >
+        <CollectionView Grid.ColumnSpan="3" ItemsSource="{Binding Appointments}" >
 
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="15" HorizontalItemSpacing="15" Span="2"    />
@@ -53,17 +53,20 @@
 
             <CollectionView.ItemTemplate>
 
-                <DataTemplate x:DataType="model:Patient">
+                <DataTemplate x:DataType="model:Appointment">
 
-                    <Frame BackgroundColor="#222327" BorderColor="Transparent" CornerRadius="15">
+                    <Frame BackgroundColor="#222327" BorderColor="Transparent" CornerRadius="15" Padding="0">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </Frame.GestureRecognizers>
-                        <Grid RowDefinitions="*" ColumnDefinitions="auto,auto,auto,auto" ColumnSpacing="5">
-                            <Label Grid.Column="1" Text="{Binding firstname}"
-                                   FontSize="Medium"/>
-                            <Label Grid.Column="3" Text="{Binding lastname}"
-                                   FontSize="Medium" Opacity="0.75"/>
+                        <Grid RowDefinitions="auto" ColumnDefinitions="auto,auto,*" ColumnSpacing="5">
+                            <Label Grid.Column="0" Text="{Binding title}"
+                                   FontSize="Medium" Margin="15"/>
+                            <Label Grid.Column="1" Text="{Binding datetime}"
+                                   FontSize="Medium" Opacity="0.75" Margin="0,15,0,15"/>
+                            <Frame Grid.Column="2" BackgroundColor="#28292E" BorderColor="Transparent" Margin="10" Padding="10,5,10,5" HorizontalOptions="End">
+                                <Label Text="{Binding status}" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Frame>
                         </Grid>
                     </Frame>
 
@@ -73,9 +76,6 @@
 
         </CollectionView>
 
-          <Button Grid.Row="1" Grid.Column="0" Text="&lt;" WidthRequest="50" HorizontalOptions="End" Command="{Binding DecreasePageCommand}"/>
-          <Label Grid.Row="1" Grid.Column="1" Text="{Binding Pagenum}" HorizontalOptions="Center"/>
-          <Button Grid.Row="1" Grid.Column="2" Text=">" WidthRequest="50" HorizontalOptions="Start" Command="{Binding IncreasePageCommand}"/>
 
                 </Grid>
 

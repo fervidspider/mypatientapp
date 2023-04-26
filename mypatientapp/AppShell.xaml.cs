@@ -11,6 +11,9 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(PatientDetails), typeof(PatientDetails));
         Routing.RegisterRoute(nameof(PatientCreate), typeof(PatientCreate));
 
+        Routing.RegisterRoute(nameof(AppointmentDetails), typeof(AppointmentDetails));
+        // Routing.RegisterRoute(nameof(AppointmentCreate), typeof(AppointmentCreate));
+
     }
 }
 

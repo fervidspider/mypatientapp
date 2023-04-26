@@ -37,9 +37,9 @@ namespace mypatientapp.ViewModel
 
         // Collections / Lists
 
-        public ObservableCollection<String> _mental { get; set; } = new();
-        public ObservableCollection<String> _physical { get; set; } = new();
-        public ObservableCollection<String> _medication { get; set; } = new();
+        public ObservableCollection<String> _mental { get; } = new();
+        public ObservableCollection<String> _physical { get; } = new();
+        public ObservableCollection<String> _medication { get; } = new();
 
         // Address
 
@@ -54,18 +54,44 @@ namespace mypatientapp.ViewModel
         [ObservableProperty]
         public string county;
 
+        // Other
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsNotEdit))]
+        public bool isEdit;
+
+        public bool IsNotEdit => !IsEdit;
+
         [ObservableProperty]
         public Patient passedpatient;
 
         PatientService patientService;
 
+        // Commands
+
         public Command DeletePatientCommand { get; }
+        public Command SetEditModeTrueCommand { get; }
+        public Command SetEditModeFalseCommand { get; }
+        public Command AddMentalDisabilityCommand { get; }
+        public Command AddPhysicalDisabilityCommand { get; }
+        public Command AddMedicationCommand { get; }
+        public Command UpdatePatientCommand { get; }
+
+
 
         public PatientDetailsViewModel(PatientService patientService)
 		{
             this.patientService = patientService;
 
             DeletePatientCommand = new Command(async () => await DeletePatientAsync(Id));
+
+            SetEditModeTrueCommand = new Command(() => SetEditModeTrue());
+            SetEditModeFalseCommand = new Command(() => SetEditModeFalse());
+
+            AddMentalDisabilityCommand = new Command(async () => await AddMentalDisability());
+            AddPhysicalDisabilityCommand = new Command(async () => await AddPhysicalDisability());
+            AddMedicationCommand = new Command(async () => await AddMedication());
+            UpdatePatientCommand = new Command(async () => await UpdatePatient());
 
         }
 
@@ -87,6 +113,22 @@ namespace mypatientapp.ViewModel
             {
                 IsBusy = true;
 
+                if (_mental != null)
+                {
+                    _mental.Clear();
+                }
+
+                if (_physical != null)
+                {
+                    _physical.Clear();
+                }
+
+                if (_medication != null)
+                {
+                    _medication.Clear();
+                }
+
+
                 var data = await patientService.GetPatientById(id);
 
                 Id = data.Id;
@@ -102,11 +144,26 @@ namespace mypatientapp.ViewModel
                 Height = data.height;
                 Weight = data.weight;
                 Notes = data.notes;
-                _mental = data.mental;
-                _physical = data.physical;
-                _medication = data.medication;
+                // _mental = data.mental;
+                // _physical = data.physical;
+                // _medication = data.medication;
                 CreatedOn = data._createdOn;
                 LastEdited = data._lastEdited;
+
+                foreach (string item in data.mental)
+                {
+                    _mental.Add(item);
+                }
+
+                foreach (string item in data.physical)
+                {
+                    _physical.Add(item);
+                }
+
+                foreach (string item in data.medication)
+                {
+                    _medication.Add(item);
+                }
 
             }
             catch (Exception ex)
@@ -129,7 +186,7 @@ namespace mypatientapp.ViewModel
 
             var answer = await Application.Current.MainPage.DisplayAlert(
                 "Confirm Deletion!",
-                $"{Patient.Id}\n{Patient.firstname} {Patient.lastname}\n",
+                $"{Id}\n{Firstname} {Lastname}\n",
                 "Delete", "Cancel");
 
             if (answer == false)
@@ -155,7 +212,7 @@ namespace mypatientapp.ViewModel
                 catch (Exception ex)
                 {
 
-                    Debug.WriteLine($"Unable to retrieve patients {ex.Message}");
+                    Debug.WriteLine($"Unable to delete patient {ex.Message}");
                     await Application.Current.MainPage.DisplayAlert("Error!", ex.Message, "OK");
 
                 }
@@ -172,6 +229,127 @@ namespace mypatientapp.ViewModel
 
 
         }
+
+        async Task UpdatePatient()
+        {
+
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+
+                var updatedAddress = new Address()
+                {
+                    firstline = Firstline,
+                    secondline = Secondline,
+                    postcode = Postcode,
+                    city = City,
+                    county = County
+                };
+
+                var updatedPatient = new Patient()
+                {
+                    Id = Id,
+                    firstname = Firstname,
+                    middlename = Middlename,
+                    lastname = Lastname,
+                    dateofbirth = Dateofbirth,
+                    address = updatedAddress,
+                    height = Height,
+                    weight = Weight,
+                    notes = Notes,
+                    mental = _mental,
+                    physical = _physical,
+                    medication = _medication,
+
+                };
+
+                await patientService.UpdatePatientById(updatedPatient);
+
+                await Application.Current.MainPage.DisplayAlert("Success!", "Patient Updated", "OK");
+
+
+
+            } catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error!", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+                IsEdit = false;
+                await GetPatientsAsync(Id);
+            }
+
+
+        }
+
+        private void SetEditModeTrue()
+        {
+            IsEdit = true;
+        }
+
+        private async void SetEditModeFalse()
+        {
+
+            IsEdit = false;
+            await GetPatientsAsync(Id);
+
+        }
+
+        async Task AddMentalDisability()
+        {
+
+            string result = await App.Current.MainPage.DisplayPromptAsync("Add New Mental Disability", "Enter Disability:");
+
+            try
+            {
+                _mental.Add(result);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+        }
+
+        async Task AddPhysicalDisability()
+        {
+
+            string result = await App.Current.MainPage.DisplayPromptAsync("Add New Physical Disability", "Enter Disability:");
+
+            try
+            {
+                _physical.Add(result);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+        }
+
+        async Task AddMedication()
+        {
+
+            string result = await App.Current.MainPage.DisplayPromptAsync("Add New Medication", "Enter Medication:");
+
+            try
+            {
+                _medication.Add(result);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+        }
+
 
 
 

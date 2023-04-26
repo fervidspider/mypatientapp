@@ -11,6 +11,7 @@ namespace mypatientapp.ViewModel
 	{
 
         // Patient
+
         [ObservableProperty]
         public string firstname;
         [ObservableProperty]
@@ -27,11 +28,13 @@ namespace mypatientapp.ViewModel
         public string notes;
 
         // Collections / Lists
+
         public ObservableCollection<String> _mental { get; } = new();
         public ObservableCollection<String> _physical { get; } = new();
         public ObservableCollection<String> _medication { get; } = new();
 
         // Address
+
         [ObservableProperty]
         public string firstline;
         [ObservableProperty]
@@ -43,6 +46,7 @@ namespace mypatientapp.ViewModel
         [ObservableProperty]
         public string county;
 
+        // Services
 
         PatientService patientService;
 
@@ -103,6 +107,8 @@ namespace mypatientapp.ViewModel
                 };
                 
                 await patientService.CreatePatient(newpatient);
+
+                await Application.Current.MainPage.DisplayAlert("Success!", $"Patient Succesfully Created", "OK");
 
             }
             catch (Exception ex)

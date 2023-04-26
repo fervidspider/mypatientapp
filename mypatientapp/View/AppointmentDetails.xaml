@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:mypatientapp.ViewModel"
+             xmlns:model="clr-namespace:mypatientapp.Model"
+             x:Class="mypatientapp.View.AppointmentDetails"
+             x:DataType="viewmodel:AppointmentDetailsViewModel"
+             Title="Edit Appointment">
+
+
+    <Grid Margin="20" ColumnDefinitions="*,*,*" ColumnSpacing="20">
+
+        <Frame
+            HeightRequest="60" WidthRequest="60" Margin="20" Grid.ColumnSpan="3"
+            BackgroundColor="{StaticResource Gray950}" IsVisible="{Binding IsBusy}" CornerRadius="15"
+            HorizontalOptions="Center" VerticalOptions="Center" BorderColor="Transparent">
+
+            <ActivityIndicator
+                IsVisible="{Binding IsBusy}"
+                IsRunning="{Binding IsBusy}" />
+
+        </Frame>
+
+        <Grid RowDefinitions="auto" RowSpacing="20">
+
+            <Frame
+                Padding="0"
+                BackgroundColor="#28292E"
+                BorderColor="Transparent"
+                CornerRadius="20">
+
+
+                <Grid RowDefinitions="40,40,40,40,40,40,40,40,40,40,40,40,40,40,20">
+
+                    <Border StrokeThickness="0"
+                            StrokeShape="RoundRectangle 20,20,0,0"
+                            Background="#005EB8"
+                            >
+                        
+                        <Label Text="  Appointment Details  "
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               />
+                    </Border>
+
+                    <Label Grid.Row="1" Text="Appointment ID"  Margin="25" VerticalOptions="Center"/>
+
+                    <Entry Grid.Row="2" Text="{Binding Id}" IsReadOnly="{Binding IsNotEdit}" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327" />
+
+
+                    <Label Grid.Row="3" Text="Title"  Margin="25" VerticalOptions="Center"/>
+
+                    <Entry Grid.Row="4" Text="{Binding Title}" IsReadOnly="{Binding IsNotEdit}" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327" />
+
+
+                    <Label Grid.Row="5" Text="Host"  Margin="25" VerticalOptions="Center"/>
+
+                    <Entry Grid.Row="6" Text="{Binding Host}" IsReadOnly="{Binding IsNotEdit}" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327"/>
+
+
+                    <Label Grid.Row="7" Text="Date"  Margin="25" VerticalOptions="Center"/>
+
+                    <DatePicker DateSelected="DatePicker_DateSelected" TextColor="White" Grid.Row="8" Date="{Binding AppDate}" IsEnabled="{Binding IsEdit}" Format="dd/MM/yyyy" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327"/>
+
+                    <Label Grid.Row="9" Text="Time"  Margin="25" VerticalOptions="Center"/>
+
+                    <TimePicker PropertyChanged="TimePicker_PropertyChanged" TextColor="White" Grid.Row="10" Time="{Binding AppTime}" IsEnabled="{Binding IsEdit}" Format="HH:mm:ss" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327"/>
+
+                    <Label Grid.Row="11" Text="Status"  Margin="25" VerticalOptions="Center"/>
+
+                    <Picker Grid.Row="12" Title="{Binding Status}" IsEnabled="{Binding IsEdit}" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327"
+                            SelectedItem="{Binding Status}">
+                          <Picker.Items>
+                              <x:String>Scheduled</x:String>
+                              <x:String>Complete</x:String>
+                              <x:String>Cancelled</x:String>
+                          </Picker.Items>
+                    </Picker>
+
+
+                    
+
+                </Grid>
+
+            </Frame>
+
+        </Grid>
+
+        <Grid Grid.Column="1" RowDefinitions="auto" RowSpacing="20">
+
+            <Frame
+                Grid.Column="0"
+                Padding="0"
+                BackgroundColor="#28292E"
+                BorderColor="Transparent"
+                CornerRadius="20">
+
+                <Grid RowDefinitions="40,20,*,20">
+
+                        <Border StrokeThickness="0"
+                                StrokeShape="RoundRectangle 20,20,0,0"
+                                Background="#005EB8"
+                                >
+                        
+                            <Label Text="  Notes  "
+                                   TextColor="White"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   />
+                        </Border>
+
+                        
+
+                        <Editor Grid.Row="2"
+                                Text="{Binding Notes}"
+                                Margin="15,0,15,0"
+                                VerticalOptions="Start"
+                                BackgroundColor="#222327" AutoSize="TextChanges" IsReadOnly="{Binding IsNotEdit}" />
+
+
+                    
+                 </Grid>
+
+            </Frame>
+
+        </Grid>
+
+
+        <Grid Grid.Column="2" RowDefinitions="50,auto" RowSpacing="20">
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
+
+                <Button Background="#28292E" IsVisible="{Binding IsNotEdit}" Command="{Binding SetEditModeTrueCommand}" Text="Edit Patient" TextColor="White" CornerRadius="15">
+                    <Button.Shadow>
+                        <Shadow Brush="Black"
+                                Offset="0,0"
+                                Radius="15"
+                                Opacity="0.4" />
+                    </Button.Shadow>
+                </Button>
+                <Button Background="#28292E" Text="Cancel" IsVisible="{Binding IsEdit}" Command="{Binding SetEditModeFalseCommand}" TextColor="White" CornerRadius="15">
+                    <Button.Shadow>
+                        <Shadow Brush="Black"
+                                Offset="0,0"
+                                Radius="15"
+                                Opacity="0.4" />
+                    </Button.Shadow>
+                </Button>
+                <Button Grid.Column="1" Background="#B44040" IsVisible="{Binding IsNotEdit}" Text="Delete Patient" TextColor="White" CornerRadius="15"
+                        Command="{Binding DeleteAppointmentCommand}">
+                    <Button.Shadow>
+                        <Shadow Brush="Black"
+                                Offset="0,0"
+                                Radius="15"
+                                Opacity="0.35" />
+                    </Button.Shadow>
+                </Button>
+                <Button Grid.Column="1" Background="#77AB58" IsVisible="{Binding IsEdit}" Text="Save Changes" TextColor="White" CornerRadius="15"
+                        Command="{Binding UpdateAppointmentCommand}">
+                    <Button.Shadow>
+                        <Shadow Brush="Black"
+                                Offset="0,0"
+                                Radius="15"
+                                Opacity="0.35" />
+                    </Button.Shadow>
+                </Button>
+
+            </Grid>
+
+            <Frame
+                Grid.Row="1"
+                Padding="0"
+                BackgroundColor="#28292E"
+                BorderColor="Transparent"
+                CornerRadius="20">
+
+                <Grid RowDefinitions="40,40,40,40,40,40,40,40,40,20">
+
+                    <Border StrokeThickness="0"
+                            StrokeShape="RoundRectangle 20,20,0,0"
+                            Background="#005EB8"
+                            >
+                        
+                        <Label Text="  Patient Details  "
+                               TextColor="White"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               />
+                    </Border>
+
+                    <Label Grid.Row="1" Text="Patient ID"  Margin="25" VerticalOptions="Center"/>
+
+                    <Entry Grid.Row="2" Text="{Binding PatientDetails.Id}" IsReadOnly="True" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327" />
+
+
+                    <Label Grid.Row="3" Text="First Name"  Margin="25" VerticalOptions="Center"/>
+
+                    <Entry Grid.Row="4" Text="{Binding PatientDetails.firstname}" IsReadOnly="True" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327" />
+
+
+                    <Label Grid.Row="5" Text="Middle Name"  Margin="25" VerticalOptions="Center"/>
+
+                    <Entry Grid.Row="6" Text="{Binding PatientDetails.middlename}" IsReadOnly="True" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327"/>
+
+
+                    <Label Grid.Row="7" Text="Last Name"  Margin="25" VerticalOptions="Center"/>
+
+                    <Entry Grid.Row="8" Text="{Binding PatientDetails.lastname}" IsReadOnly="True" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327"/>
+                    
+
+                </Grid>
+
+            </Frame>
+
+
+
+        </Grid>
+
+    </Grid>
+
+
+</ContentPage>

@@ -7,22 +7,40 @@ using System.Runtime.CompilerServices;
 using mypatientapp.Services;
 using mypatientapp.View;
 using System.Diagnostics;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace mypatientapp.ViewModel
 {
-    public class PatientViewModel : BaseViewModel
+    public partial class PatientViewModel : BaseViewModel
     {
 
         public ObservableCollection<Patient> Patients { get; } = new();
+
+        [ObservableProperty]
+        public int pagenum = 1;
+        [ObservableProperty]
+        public int skip = 0;
+
+        [ObservableProperty]
+        public string searchQuery;
+
         public Command GetPatientsCommand { get; }
         public Command NavigateToCommand { get; }
+        public Command IncreasePageCommand { get; }
+        public Command DecreasePageCommand { get; }
+
         PatientService patientService;
+
+
+
 
         public PatientViewModel(PatientService patientService)
         {
             this.patientService = patientService;
             GetPatientsCommand = new Command(async () => await GetPatientsAsync());
             NavigateToCommand = new Command(() => NavigateToCreate());
+            IncreasePageCommand = new Command(() => IncreasePage());
+            DecreasePageCommand = new Command(() => DecreasePage());
 
             Title = "Patients"; 
 
@@ -47,7 +65,7 @@ namespace mypatientapp.ViewModel
             {
                 IsBusy = true;
 
-                var patients = await patientService.GetPatients();
+                var patients = await patientService.GetPatients(Skip);
 
                 if (Patients.Count != 0)
                     Patients.Clear();
@@ -70,6 +88,26 @@ namespace mypatientapp.ViewModel
             }
 
 
+        }
+
+        private async void IncreasePage()
+        {
+
+            Pagenum += 1;
+            Skip += 18;
+
+            await GetPatientsAsync();
+        }
+
+        private async void DecreasePage()
+        {
+            if (Skip == 0)
+                return;
+
+            Pagenum -= 1;
+            Skip -= 18;
+
+            await GetPatientsAsync();
         }
 
 

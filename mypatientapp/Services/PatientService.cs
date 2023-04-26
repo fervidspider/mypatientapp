@@ -33,10 +33,10 @@ namespace mypatientapp.Services
 			this.httpClient = new HttpClient(GetInsecureHandler());
 		}
 
-		public async Task<List<Patient>> GetPatients()
+		public async Task<List<Patient>> GetPatients(int skip)
 		{
 
-			var response = await httpClient.GetAsync($"{baseURL}/api/Patient");
+			var response = await httpClient.GetAsync($"{baseURL}/api/Patient?%24top=18&%24skip={skip}");
 
 			if (response.IsSuccessStatusCode)
 			{
@@ -53,7 +53,7 @@ namespace mypatientapp.Services
         {
 
             var response = await httpClient.GetAsync($"{baseURL}/api/Patient/{id}");
-            
+
 
             if (response.IsSuccessStatusCode)
             {
@@ -91,6 +91,8 @@ namespace mypatientapp.Services
 
             var response = await httpClient.PostAsync($"{baseURL}/api/Patient", content);
 
+            Console.WriteLine(response.Content.ToString());
+
             if (response.IsSuccessStatusCode)
                 Debug.WriteLine("Patient successfully created.");
 
@@ -98,6 +100,25 @@ namespace mypatientapp.Services
                 Debug.WriteLine("Failed to create patient");
 
 
+        }
+
+        public async Task UpdatePatientById(Patient patient)
+        {
+
+            string json = JsonSerializer.Serialize<Patient>(patient, _serializerOptions);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await httpClient.PutAsync($"{baseURL}/api/Patient/{patient.Id}", content);
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                Debug.WriteLine($"{patient.Id} Successfully Updated");
+            }
+            else
+            {
+                Debug.WriteLine($"Error Updating {patient.Id}");
+            }
         }
 
 

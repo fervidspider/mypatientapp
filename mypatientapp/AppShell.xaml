@@ -19,6 +19,11 @@
         ContentTemplate="{DataTemplate view:Patients}"
         Route="Patients" />
 
+        <ShellContent
+        Title="Appointments"
+        ContentTemplate="{DataTemplate view:Appointments}"
+        Route="Appointments" />
+
     </TabBar>
 
 </Shell>
