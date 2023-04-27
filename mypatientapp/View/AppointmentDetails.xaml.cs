@@ -27,7 +27,8 @@ public partial class AppointmentDetails : ContentPage
         var viewModel = (AppointmentDetailsViewModel)BindingContext;
         var timePicker = (TimePicker)sender;
 
-        viewModel.AppTime = timePicker.Time;
+        // viewModel.AppTime = timePicker.Time;
+        viewModel.AppTime = DateTime.Now.TimeOfDay;
     }
 
 

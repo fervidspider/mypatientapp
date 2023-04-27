@@ -12,7 +12,7 @@ namespace mypatientapp.Model
 	{
 
 		public string Id { get; set; }
-        public string patientid { get; set; }
+        public string _patientid { get; set; }
 		public string title { get; set; } = null!;
 		public string host { get; set; } = null!;
 		public DateTime datetime { get; set; }

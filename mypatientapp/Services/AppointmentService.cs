@@ -14,7 +14,7 @@ namespace mypatientapp.Services
         Appointment appointment = new();
 		HttpClient httpClient;
         JsonSerializerOptions _serializerOptions;
-        string baseURL = "https://192.168.68.201:7192";
+        string baseURL = "https://mypatientapi.azurewebsites.net";
 
         public static HttpClientHandler GetInsecureHandler()
         {
@@ -54,11 +54,6 @@ namespace mypatientapp.Services
             DateTime today = DateTime.Now;
             var response = await httpClient.GetAsync($"{baseURL}/api/Appointment?%24filter=datetime%20gt%20{today.Year}-{today.Month.ToString("d2")}-{today.Day.ToString("d2")}T00%3A00%3A00Z%20and%20datetime%20lt%20{today.Year}-{today.Month.ToString("d2")}-{today.Day.ToString("d2")}T23%3A59%3A59Z");
 
-            Console.WriteLine("Response: "+response);
-            Console.WriteLine($"{baseURL}/api/Appointment?%24filter=datetime%20gt%20{today.Year}-{today.Month.ToString("d2")}-{today.Day.ToString("d2")}T00%3A00%3A00Z%20and%20datetime%20lt%20{today.Year}-{today.Month.ToString("d2")}-{today.Day.ToString("d2")}T23%3A59%3A59Z");
-            Console.WriteLine("Year: " + today.Year);
-            Console.WriteLine("Month: " + today.Month.ToString("d2"));
-            Console.WriteLine("Day: " + today.Day);
 
             if (response.IsSuccessStatusCode)
             {

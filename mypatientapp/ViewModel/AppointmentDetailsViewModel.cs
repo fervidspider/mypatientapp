@@ -89,7 +89,7 @@ namespace mypatientapp.ViewModel
         {
 
             await GetAppointmentsAsync(Passedappointment.Id);
-            await GetPatientAsync(Passedappointment.patientid);
+            await GetPatientAsync(Passedappointment._patientid);
 
         }
 
@@ -108,7 +108,7 @@ namespace mypatientapp.ViewModel
                 var data = await appointmentService.GetAppointmentById(id);
 
                 Id = data.Id;
-                Patientid = data.patientid;
+                Patientid = data._patientid;
                 Title = data.title;
                 Host = data.host;
                 AppDate = data.datetime;
@@ -203,18 +203,15 @@ namespace mypatientapp.ViewModel
                 var updatedAppointment = new Appointment()
                 {
                     Id = Id,
-                    patientid = Patientid,
+                    _patientid = Patientid,
                     title = Title,
                     host = Host,
-                    datetime = new DateTime(AppDate.Year, AppDate.Month, AppDate.Day, AppTime.Hours, AppTime.Minutes, AppTime.Seconds),
+                    datetime = (new DateTime(AppDate.Year, AppDate.Month, AppDate.Day, AppTime.Hours, AppTime.Minutes, AppTime.Seconds)).ToUniversalTime(),
                     status = Status,
                     notes = Notes
 
             };
 
-                Console.WriteLine("AppDateTime " + AppDate);
-                Console.WriteLine("AppDateTime " + AppTime);
-                Console.WriteLine("updatedTime " + updatedAppointment.datetime);
 
                 await appointmentService.UpdateAppointmentById(updatedAppointment);
 

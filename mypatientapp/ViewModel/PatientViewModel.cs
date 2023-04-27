@@ -15,19 +15,32 @@ namespace mypatientapp.ViewModel
     {
 
         public ObservableCollection<Patient> Patients { get; } = new();
+        public ObservableCollection<Patient> filteredPatients { get; } = new();
 
         [ObservableProperty]
-        public int pagenum = 1;
-        [ObservableProperty]
-        public int skip = 0;
+        [NotifyPropertyChangedFor(nameof(IsNotFiltered))]
+        public bool isFiltered;
+
+        public bool IsNotFiltered => !IsFiltered;
+
 
         [ObservableProperty]
         public string searchQuery;
 
         public Command GetPatientsCommand { get; }
         public Command NavigateToCommand { get; }
-        public Command IncreasePageCommand { get; }
-        public Command DecreasePageCommand { get; }
+
+        private string searchText;
+        public string SearchText
+        {
+            get { return searchText; }
+            set
+            {
+                searchText = value;
+                FilterCollection();
+                OnPropertyChanged(nameof(Patients));
+            }
+        }
 
         PatientService patientService;
 
@@ -39,8 +52,6 @@ namespace mypatientapp.ViewModel
             this.patientService = patientService;
             GetPatientsCommand = new Command(async () => await GetPatientsAsync());
             NavigateToCommand = new Command(() => NavigateToCreate());
-            IncreasePageCommand = new Command(() => IncreasePage());
-            DecreasePageCommand = new Command(() => DecreasePage());
 
             Title = "Patients"; 
 
@@ -65,7 +76,7 @@ namespace mypatientapp.ViewModel
             {
                 IsBusy = true;
 
-                var patients = await patientService.GetPatients(Skip);
+                var patients = await patientService.GetPatients();
 
                 if (Patients.Count != 0)
                     Patients.Clear();
@@ -89,25 +100,29 @@ namespace mypatientapp.ViewModel
 
 
         }
-
-        private async void IncreasePage()
+        
+        private void FilterCollection()
         {
+            if (string.IsNullOrEmpty(searchText))
+            {
+                IsFiltered = false;
+            }
+            else
+            {
 
-            Pagenum += 1;
-            Skip += 18;
+                IsFiltered = true;
 
-            await GetPatientsAsync();
-        }
+                var filPatients = new ObservableCollection<Patient>(Patients.Where(item =>
+                item.firstname.ToLower().Contains(searchText.ToLower()) ||
+                item.middlename.ToLower().Contains(searchText.ToLower()) ||
+                item.lastname.ToLower().Contains(searchText.ToLower())
+                ) );
 
-        private async void DecreasePage()
-        {
-            if (Skip == 0)
-                return;
+                filteredPatients.Clear();
 
-            Pagenum -= 1;
-            Skip -= 18;
-
-            await GetPatientsAsync();
+                foreach (var patient in filPatients)
+                    filteredPatients.Add(patient);
+            }
         }
 
 

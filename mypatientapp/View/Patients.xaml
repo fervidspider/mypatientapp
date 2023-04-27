@@ -11,7 +11,7 @@
 
 <Grid Margin="20" ColumnDefinitions="*,75,75" RowDefinitions="50,*" RowSpacing="15" ColumnSpacing="15">
 
-    <Entry Text="{Binding SearchQuery}" BackgroundColor="#222327" HorizontalOptions="Start" WidthRequest="300" HeightRequest="50" />
+    <SearchBar Text="{Binding SearchText}" BackgroundColor="#222327" HorizontalOptions="Start" WidthRequest="300" />
 
     <Frame Grid.Column="1"
            BackgroundColor="#28292E"
@@ -40,30 +40,35 @@
 
     </Frame>
 
-    <Frame Grid.Row="1" Grid.ColumnSpan="3" BackgroundColor="#28292E" BorderColor="Transparent" CornerRadius="25">
+    <Frame Grid.Row="1" Grid.ColumnSpan="3" BackgroundColor="#28292E" BorderColor="Transparent" CornerRadius="25" IsVisible="{Binding IsNotFiltered}">
 
-         <Grid ColumnDefinitions="*,100,*" RowDefinitions="*,30" RowSpacing="20" ColumnSpacing="50" >
+         <Grid ColumnDefinitions="*,100,*" RowDefinitions="*" RowSpacing="20" ColumnSpacing="50" >
 
 
         <CollectionView Grid.ColumnSpan="3" ItemsSource="{Binding Patients}" >
 
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="15" HorizontalItemSpacing="15" Span="2"    />
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="15" HorizontalItemSpacing="15" Span="3"    />
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
 
                 <DataTemplate x:DataType="model:Patient">
 
-                    <Frame BackgroundColor="#222327" BorderColor="Transparent" CornerRadius="15">
+                    <Frame BackgroundColor="#222327" BorderColor="Transparent" CornerRadius="15" Padding="0">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </Frame.GestureRecognizers>
-                        <Grid RowDefinitions="*" ColumnDefinitions="auto,auto,auto,auto" ColumnSpacing="5">
-                            <Label Grid.Column="1" Text="{Binding firstname}"
-                                   FontSize="Medium"/>
-                            <Label Grid.Column="3" Text="{Binding lastname}"
-                                   FontSize="Medium" Opacity="0.75"/>
+                        <Grid RowDefinitions="*" ColumnDefinitions="auto,auto,auto,*" ColumnSpacing="5">
+                            <Label Grid.Column="0" Text="{Binding firstname}"
+                                   FontSize="Medium" Margin="15,15,0,15" />
+                            <Label Grid.Column="1" Text="{Binding middlename}"
+                                   FontSize="Medium" Opacity="0.75" Margin="0,15,0,15"/>
+                            <Label Grid.Column="2" Text="{Binding lastname}"
+                                   FontSize="Medium" Opacity="0.75" Margin="0,15,0,15"/>
+                            <Frame Grid.Column="3" BackgroundColor="#28292E" BorderColor="Transparent" Margin="10" Padding="10,5,10,5" HorizontalOptions="End">
+                                <Label Text="{Binding dateofbirth, StringFormat='{0:dd/MM/yyyy}'}" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Frame>
                         </Grid>
                     </Frame>
 
@@ -73,9 +78,57 @@
 
         </CollectionView>
 
-          <Button Grid.Row="1" Grid.Column="0" Text="&lt;" WidthRequest="50" HorizontalOptions="End" Command="{Binding DecreasePageCommand}"/>
-          <Label Grid.Row="1" Grid.Column="1" Text="{Binding Pagenum}" HorizontalOptions="Center"/>
-          <Button Grid.Row="1" Grid.Column="2" Text=">" WidthRequest="50" HorizontalOptions="Start" Command="{Binding IncreasePageCommand}"/>
+
+                </Grid>
+
+    </Frame>
+
+    <Frame Grid.Row="1" Grid.ColumnSpan="3" BackgroundColor="#28292E" BorderColor="Transparent" CornerRadius="25" IsVisible="{Binding IsFiltered}">
+
+         <Grid ColumnDefinitions="*,100,*" RowDefinitions="*" RowSpacing="20" ColumnSpacing="50" >
+
+
+                <CollectionView Grid.ColumnSpan="3" ItemsSource="{Binding filteredPatients}" >
+
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="15" HorizontalItemSpacing="15" Span="1"    />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate x:DataType="model:Patient">
+
+                    <Frame BackgroundColor="#222327" BorderColor="Transparent" CornerRadius="15" Padding="0">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </Frame.GestureRecognizers>
+                        <Grid ColumnDefinitions="*,*">
+                        <Grid Grid.Column="0" RowDefinitions="*" ColumnDefinitions="auto,auto,auto,auto,auto" ColumnSpacing="5" >
+                            <Label Grid.Column="0" Text="{Binding firstname}"
+                                   FontSize="Medium" Margin="15,15,0,15" />
+                            <Label Grid.Column="1" Text="{Binding middlename}"
+                                   FontSize="Medium" Opacity="0.75" Margin="0,15,0,15"/>
+                            <Label Grid.Column="2" Text="{Binding lastname}"
+                                   FontSize="Medium" Opacity="0.75" Margin="0,15,0,15"/>
+                        </Grid>
+                        <Grid Grid.Column="1" RowDefinitions="*" ColumnDefinitions="auto,auto,auto,auto,auto" ColumnSpacing="5" HorizontalOptions="End" >
+                           
+                            <Frame Grid.Column="0" BackgroundColor="#28292E" BorderColor="Transparent" Margin="10" Padding="10,5,10,5" HorizontalOptions="End">
+                                <Label Text="{Binding dateofbirth, StringFormat='{0:dd/MM/yyyy}'}" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Frame>
+                            <Frame Grid.Column="1" BackgroundColor="#28292E" BorderColor="Transparent" Margin="10" Padding="10,5,10,5" HorizontalOptions="End">
+                                <Label Text="{Binding dateofbirth, StringFormat='{0:dd/MM/yyyy}'}" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Frame>
+                        </Grid>
+                        </Grid>
+                    </Frame>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
 
                 </Grid>
 

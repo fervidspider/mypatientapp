@@ -48,7 +48,7 @@
 
                     <Label Grid.Row="1" Text="Appointment ID"  Margin="25" VerticalOptions="Center"/>
 
-                    <Entry Grid.Row="2" Text="{Binding Id}" IsReadOnly="{Binding IsNotEdit}" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327" />
+                    <Entry Grid.Row="2" Text="{Binding Id}" IsReadOnly="True" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327" />
 
 
                     <Label Grid.Row="3" Text="Title"  Margin="25" VerticalOptions="Center"/>
@@ -60,16 +60,15 @@
 
                     <Entry Grid.Row="6" Text="{Binding Host}" IsReadOnly="{Binding IsNotEdit}" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327"/>
 
-
                     <Label Grid.Row="7" Text="Date"  Margin="25" VerticalOptions="Center"/>
 
                     <DatePicker DateSelected="DatePicker_DateSelected" TextColor="White" Grid.Row="8" Date="{Binding AppDate}" IsEnabled="{Binding IsEdit}" Format="dd/MM/yyyy" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327"/>
-
+                    
                     <Label Grid.Row="9" Text="Time"  Margin="25" VerticalOptions="Center"/>
 
-                    <TimePicker PropertyChanged="TimePicker_PropertyChanged" TextColor="White" Grid.Row="10" Time="{Binding AppTime}" IsEnabled="{Binding IsEdit}" Format="HH:mm:ss" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327"/>
+                    <TimePicker  TextColor="White" Grid.Row="10" Time="{Binding AppTime, Mode=TwoWay}" IsEnabled="{Binding IsEdit}" Format="HH:mm" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327"/>
 
-                    <Label Grid.Row="11" Text="Status"  Margin="25" VerticalOptions="Center"/>
+                    <Label Grid.Row="11"  Text="Status"  Margin="25" VerticalOptions="Center"/>
 
                     <Picker Grid.Row="12" Title="{Binding Status}" IsEnabled="{Binding IsEdit}" Margin="20,0,20,0" VerticalOptions="Center" BackgroundColor="#222327"
                             SelectedItem="{Binding Status}">
@@ -135,7 +134,7 @@
 
             <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
 
-                <Button Background="#28292E" IsVisible="{Binding IsNotEdit}" Command="{Binding SetEditModeTrueCommand}" Text="Edit Patient" TextColor="White" CornerRadius="15">
+                <Button Background="#28292E" IsVisible="{Binding IsNotEdit}" Command="{Binding SetEditModeTrueCommand}" Text="Edit Appointment" TextColor="White" CornerRadius="15">
                     <Button.Shadow>
                         <Shadow Brush="Black"
                                 Offset="0,0"
@@ -151,7 +150,7 @@
                                 Opacity="0.4" />
                     </Button.Shadow>
                 </Button>
-                <Button Grid.Column="1" Background="#B44040" IsVisible="{Binding IsNotEdit}" Text="Delete Patient" TextColor="White" CornerRadius="15"
+                <Button Grid.Column="1" Background="#B44040" IsVisible="{Binding IsNotEdit}" Text="Delete Appointment" TextColor="White" CornerRadius="15"
                         Command="{Binding DeleteAppointmentCommand}">
                     <Button.Shadow>
                         <Shadow Brush="Black"

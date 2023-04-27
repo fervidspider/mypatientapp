@@ -14,7 +14,7 @@ namespace mypatientapp.Services
         Patient patient = new();
 		HttpClient httpClient;
         JsonSerializerOptions _serializerOptions;
-        string baseURL = "https://192.168.68.201:7192";
+        string baseURL = "https://mypatientapi.azurewebsites.net";
 
         public static HttpClientHandler GetInsecureHandler()
         {
@@ -33,10 +33,10 @@ namespace mypatientapp.Services
 			this.httpClient = new HttpClient(GetInsecureHandler());
 		}
 
-		public async Task<List<Patient>> GetPatients(int skip)
+		public async Task<List<Patient>> GetPatients()
 		{
 
-			var response = await httpClient.GetAsync($"{baseURL}/api/Patient?%24top=18&%24skip={skip}");
+			var response = await httpClient.GetAsync($"{baseURL}/api/Patient");
 
 			if (response.IsSuccessStatusCode)
 			{

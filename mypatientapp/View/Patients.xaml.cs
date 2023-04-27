@@ -30,4 +30,10 @@ public partial class Patients : ContentPage
         
     }
 
+    private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+    {
+        var viewModel = (PatientViewModel)BindingContext;
+        viewModel.SearchText = e.NewTextValue;
+    }
+
 }

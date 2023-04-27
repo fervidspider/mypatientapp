@@ -7,7 +7,7 @@
              x:Class="mypatientapp.View.Dashboard">
 
 
-    <Grid ColumnDefinitions="*,3*" Margin="20" ColumnSpacing="15">
+    <Grid ColumnDefinitions="*,3*" Margin="20" ColumnSpacing="20">
 
         <Frame Grid.Column="0" Grid.ColumnSpan="1" BackgroundColor="#28292E" BorderColor="Transparent" CornerRadius="25" Padding="0">
 
@@ -40,14 +40,22 @@
                             StrokeShape="RoundRectangle 20,20,0,0"
                             Background="#005EB8"
                             >
+                    <Grid ColumnDefinitions="*,*,*">
                         
-                        <Label Text="  Appointments Today  "
+                        <Label Grid.Column="1" Text="  Appointments Today  "
                                TextColor="White"
                                FontSize="16"
                                FontAttributes="Bold"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"
                                />
+
+                        <Button Grid.Column="2" Command="{Binding GetAppointmentTodayCommand}" HorizontalOptions="End" Text="Refresh" WidthRequest="200" TextColor="White" BackgroundColor="Transparent"/>
+
+                        </Grid>
+
+                        
+
                     </Border>
 
             <CollectionView Margin="15" Grid.Row="1" ItemsSource="{Binding Appointments}" >
